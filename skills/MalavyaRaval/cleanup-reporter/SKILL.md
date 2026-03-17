@@ -1,37 +1,31 @@
----
-name: cleanup-reporter
-description: Scan your machine for large directories, duplicate files, and stale resume files.
-homepage: https://github.com/MalavyaRaval/cleanup-reporter
-metadata:
-  clawdbot:
-    emoji: "🧹"
-  requires:
-    env: []
-  files: ["scripts/*"]
----
+# cleanup-reporter
 
-# Cleanup Reporter Skill
+A high-performance utility to reclaim disk space by identifying large directories, duplicate files, and stale resume files.
 
-This skill helps you identify disk space hogs, duplicate files, and stale data on your machine.
+## Description
+\`cleanup-reporter\` automates the identification of disk bloat. It provides a non-destructive scan that highlights high-impact opportunities for space reclamation without requiring risky, immediate deletions.
 
-## Tools
-- `ncdu`: Visual disk usage analyzer
-- `rdfind`: Duplicate file finder
+## Installation
+\`\`\`bash
+# Install via npm
+npm install -g cleanup-reporter
+\`\`\`
 
 ## Usage
-- Run `cleanup-reporter-scan` to perform a scan and generate a report.
-- It will create a report file in `~/reports/cleanup_report_YYYY-MM-DD.md`.
+Run a standard scan on your target directory:
+\`\`\`bash
+cleanup-reporter --scan /path/to/target
+\`\`\`
 
-## External Endpoints
-- None. This skill operates entirely locally.
+### Options
+- \`--scan <path>\`: Specifies the directory to analyze.
+- \`--type <type>\`: Filter by file type (e.g., \`duplicate\`, \`large\`, \`stale\`).
+- \`--dry-run\`: Performs a scan without initiating any deletion processes.
 
-## Security & Privacy
-- **What leaves the machine:** Nothing.
-- **What is accessed:** Local user directories for scanning.
-- **Data persistence:** Only the generated markdown report and `rdfind` temp files are written to disk.
+## Safety & Security
+- **Safe Deletion:** This tool defaults to a "report-only" mode.
+- **Trash Protocol:** When enabled, deletion uses the system's \`trash\` protocol (moving files to the trash bin) rather than permanent \`rm\` operations to prevent accidental data loss.
+- **Audit Trails:** Every scan generates a lightweight log in \`~/.cleanup-reporter/logs/\` for transparency and auditability.
 
-## Model Invocation Note
-This skill is invoked autonomously by OpenClaw when triggered by the user to perform cleanup tasks.
-
-## Trust Statement
-By using this skill, you allow the agent to scan your local file system. Only install if you trust the agent's access to your local files.
+## Author
+Malavya Raval (malavyaraval@gmail.com)
